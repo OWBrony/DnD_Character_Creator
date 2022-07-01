@@ -28,7 +28,7 @@ though the software will be tested with a Firefox browser.
 
 {Make a list of websites that you found helpful in this project}
 * [Mozilla Developer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
-* [Web Site Name](http://url.link.goes.here)
+* [DelftStack](https://www.delftstack.com/howto/javascript/javascript-sum-of-array/#:~:text=Use%20the%20for%20Loop%20to%20Sum%20an%20Array%20in%20a%20JavaScript%20Array,-The%20for%20loop&text=const%20array%20%3D%20%5B1%2C%202,the%20sum%20of%20the%20array.)
 
 # Future Work
 

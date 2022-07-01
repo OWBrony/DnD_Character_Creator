@@ -1,9 +1,9 @@
-const character = new Map();
+let character = new Map();
 const manipulate = document.querySelector("#manipulate")
 
 // This section is for rolling stats
 function rollDice(dieFace){
-    return Math.floor(Math.random() * dieFace);
+    return Math.floor(Math.random() * dieFace) + 1;
 }
 
 function rollThree(){
@@ -14,9 +14,9 @@ function rollThree(){
     let fourthRoll = rollDice(6)
     let rolls = [firstRoll,secondRoll,thirdRoll,fourthRoll];
     rolls = removeLowest(rolls);
-    for (i in rolls){
-        if (i != undefined){
-            total += i;
+    for (let i = 0; i < rolls.length; i++){
+        if (rolls[i] != undefined){
+            total += rolls[i];   
         }
     }
     return total;
@@ -25,13 +25,14 @@ function rollThree(){
 function removeLowest(rolls){
     let lowest = 80;
     for (number in rolls){
-        if (rolls[number] <= lowest) {
+        if (rolls[number] < lowest) {
             lowest = rolls[number];
         }
     }
     for (i in rolls){
         if (rolls[i] == lowest){
             delete rolls[i];
+            break;
         }
     }
     return rolls;
@@ -47,6 +48,21 @@ function setByThree(){
     showStats()
 }
 
+function setInputStats(){
+    let strengthHolder = document.querySelector("#strengthInput").value;
+    let dexterityHolder = document.querySelector("#dexterityInput").value;
+    let constitutionHolder = document.querySelector("#constitutionInput").value;
+    let intelligenceHolder = document.querySelector("#intelligenceInput").value;
+    let wisdomHolder = document.querySelector("#wisdomInput").value;
+    let charismaHolder = document.querySelector("#charismaInput").value;
+    character.set("strength", strengthHolder);
+    character.set("dexterity", dexterityHolder);
+    character.set("constitution", constitutionHolder);
+    character.set("intelligence", intelligenceHolder);
+    character.set("wisdom", wisdomHolder);
+    character.set("charisma", charismaHolder);
+    addSaveToPage()
+}
 // This is for setting modifiers
 
 // This is for setting equipment
@@ -58,6 +74,12 @@ function setByThree(){
 // This is for setting race
 
 // This is for dynamically setting the page
+function addSaveToPage(){
+    const statBlock = document.querySelector("#statBlock")
+    let html = "<p>Data Saved!</p>";
+    statBlock.innerHTML += html;
+}
+
 function openStatPage(){
     const html = `<button id = "hand" onclick = "showInputStats()">Input by hand</button>
     <button id = "4d6" onclick = "setByThree()">Roll 4d6</button>
@@ -75,19 +97,19 @@ function showInputStats(){
     <li>Wisdom: <input id = "wisdomInput"></input></li>
     <li>Charisma: <input id = "charismaInput"></input></li>
     </ul>
-    <button id = "inputStatButton" onclick = ></button>`;
+    <button id = "inputStatButton" onclick = "setInputStats()">Save Stats</button>`;
     statBlock.innerHTML = html;
 }
 
 function showStats(){
     const statBlock = document.querySelector("#statBlock");
     let html = `<ul id = "generatedStats">
-    <li>Strength: ${character.strength}</li>
-    <li>Dexterity: ${character.dexterity}</li>
-    <li>Constitution: ${character.constitution}</li>
-    <li>Intelligence: ${character.intelligence}</li>
-    <li>Wisdom: ${character.wisdom}</li>
-    <li>Charisma: ${character.charisma}</li>
+    <li>Strength: ${character.get("strength")}</li>
+    <li>Dexterity: ${character.get("dexterity")}</li>
+    <li>Constitution: ${character.get("constitution")}</li>
+    <li>Intelligence: ${character.get("intelligence")}</li>
+    <li>Wisdom: ${character.get("wisdom")}</li>
+    <li>Charisma: ${character.get("charisma")}</li>
     </ul>`;
     statBlock.innerHTML = html;
 }
